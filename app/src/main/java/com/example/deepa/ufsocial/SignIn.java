@@ -21,6 +21,16 @@ public class SignIn extends AppCompatActivity {
         final TextView textViewErrorMessage = (TextView) findViewById(R.id.textViewSignInErrorMessage);
         textViewErrorMessage.setText("");
 
+        //button Sign Up
+        Button buttonSignUp = (Button) findViewById(R.id.buttonSignInSignUp);
+        buttonSignUp.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view){
+                Intent intentToSignUp = new Intent(SignIn.this, SignUp.class);
+                startActivity(intentToSignUp);
+            }
+        });
+
         //button Sign In
         Button buttonSignIn = (Button) findViewById(R.id.buttonSignInSignIn);
         buttonSignIn.setOnClickListener(new View.OnClickListener(){
@@ -34,29 +44,27 @@ public class SignIn extends AppCompatActivity {
                     return;
                 }
 
-                if(editTextEmail.getText().toString().equalsIgnoreCase("neo@ufl.edu") && editTextPassword.getText().toString().equals("test"))
-                {
-
+                if(editTextEmail.getText().toString().equalsIgnoreCase("neo@ufl.edu") && editTextPassword.getText().toString().equals("test")) {
                     Intent intentToUserSuggestion = new Intent(SignIn.this, ResetPasswordDone.class);
                     intentToUserSuggestion.putExtra("user_id", "10000001");
                     startActivity(intentToUserSuggestion);
                     finish();
                 }
-                else
-                {
+                else {
                     textViewErrorMessage.setText("Failed to sign in. Email or Password is incorrect.");
                 }
             }
         });
 
-
-
-
-
-
-
-
-
+        //link Forget Password
+        TextView textViewForgetPassword = (TextView) findViewById(R.id.textViewSignInForgetPassword);
+        textViewForgetPassword.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick (View view){
+                Intent intentToForgetPassword = new Intent(SignIn.this, ForgetPassword.class);
+                startActivity(intentToForgetPassword);
+            }
+        });
 
 
     }

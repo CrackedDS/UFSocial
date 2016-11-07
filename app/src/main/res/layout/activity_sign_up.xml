@@ -10,4 +10,73 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.example.deepa.ufsocial.SignUp">
 
+    <TextView
+        android:text="Sign Up"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:id="@+id/textViewSignUpMainTitle"
+        android:textSize="20sp"
+        android:textColor="@color/colorMainTitle"/>
+
+    <EditText
+        android:hint="Email"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:inputType="textEmailAddress"
+        android:ems="10"
+        android:layout_below="@+id/textViewSignUpMainTitle"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="10dp"
+        android:id="@+id/editTextSignUpEmail" />
+
+    <EditText
+        android:hint="Password"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:inputType="textPassword"
+        android:ems="10"
+        android:layout_below="@+id/editTextSignUpEmail"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="5dp"
+        android:id="@+id/editTextSignUpPassword" />
+
+    <EditText
+        android:hint="Confirm Password"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:inputType="textPassword"
+        android:ems="10"
+        android:layout_below="@+id/editTextSignUpPassword"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="5dp"
+        android:id="@+id/editTextSignUpConfirmPassword" />
+
+    <TextView
+        android:text="Error Message"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/editTextSignUpConfirmPassword"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:id="@+id/textViewSignUpErrorMessage"
+        android:textColor="@color/colorErrorMessage"/>
+
+    <Button
+        android:text="Sign Up"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textViewSignUpErrorMessage"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="5dp"
+        android:id="@+id/buttonSignUpSignUp"
+        android:textAllCaps="false"
+        android:textColor="@color/colorButtonText"
+        android:background="@color/colorButtonBackground"/>
 </RelativeLayout>

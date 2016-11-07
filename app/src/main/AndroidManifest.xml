@@ -15,15 +15,20 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".SignIn" />
+        <activity android:name=".SignIn"
+            android:windowSoftInputMode="stateVisible" />
         <activity android:name=".SignUp"
-            android:parentActivityName=".SignIn" />
+            android:parentActivityName=".SignIn"
+            android:windowSoftInputMode="stateVisible" />
         <activity android:name=".VerifyEmail"
-            android:parentActivityName=".SignUp" />
+            android:parentActivityName=".SignUp"
+            android:windowSoftInputMode="stateVisible" />
         <activity android:name=".ForgetPassword"
-            android:parentActivityName=".SignIn" />
+            android:parentActivityName=".SignIn"
+            android:windowSoftInputMode="stateVisible" />
         <activity android:name=".ResetPassword"
-            android:parentActivityName=".ForgetPassword" />
+            android:parentActivityName=".ForgetPassword"
+            android:windowSoftInputMode="stateVisible" />
         <activity android:name=".ResetPasswordDone"></activity>
     </application>
 

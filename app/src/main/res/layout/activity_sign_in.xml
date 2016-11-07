@@ -45,45 +45,6 @@
         android:layout_marginTop="5dp"
         android:id="@+id/editTextSignInPassword" />
 
-    <Button
-        android:text="Sing In"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/editTextSignInPassword"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginTop="25dp"
-        android:id="@+id/buttonSignInSignIn"
-        android:textAllCaps="false"
-        android:textColor="@color/colorButtonText"
-        android:background="@color/colorButtonBackground"/>
-
-    <TextView
-        android:text="@string/linkSignUp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:id="@+id/textViewSignInSignUp"
-        android:layout_below="@+id/buttonSignInSignIn"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginLeft="40dp"
-        android:layout_marginStart="40dp"
-        android:textColor="@color/colorTextLink" />
-
-    <TextView
-        android:text="@string/linkForgetPassword"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/textViewSignInForgetPassword"
-        android:layout_alignBaseline="@+id/textViewSignInSignUp"
-        android:layout_alignBottom="@+id/textViewSignInSignUp"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginRight="40dp"
-        android:layout_marginEnd="40dp"
-        android:textColor="@color/colorTextLink"/>
-
     <TextView
         android:text="Error Message"
         android:layout_width="fill_parent"
@@ -93,4 +54,41 @@
         android:layout_alignParentStart="true"
         android:id="@+id/textViewSignInErrorMessage"
         android:textColor="@color/colorErrorMessage"/>
+
+    <Button
+        android:text="Sign Up"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textViewSignInErrorMessage"
+        android:layout_marginTop="5dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:id="@+id/buttonSignInSignUp"
+        android:textAllCaps="false"
+        android:textColor="@color/colorButtonText"
+        android:background="@color/colorMainTitle"/>
+
+    <Button
+        android:text="Sing In"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/buttonSignInSignIn"
+        android:textAllCaps="false"
+        android:textColor="@color/colorButtonText"
+        android:background="@color/colorButtonBackground"
+        android:layout_alignBaseline="@+id/buttonSignInSignUp"
+        android:layout_alignBottom="@+id/buttonSignInSignUp"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
+
+    <TextView
+        android:text="@string/linkForgetPassword"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/textViewSignInForgetPassword"
+        android:textColor="@color/colorTextLink"
+        android:layout_below="@+id/buttonSignInSignIn"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="15dp" />
 </RelativeLayout>
