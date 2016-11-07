@@ -1,6 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#3F51B5</color>
-    <color name="colorPrimaryDark">#303F9F</color>
-    <color name="colorAccent">#FF4081</color>
+    <color name="colorPrimary">#0021A5</color>
+    <color name="colorPrimaryDark">#FA4616</color>
+    <color name="colorAccent">#DD661E</color>
+
+    <!-- UF Official Colors. UF Web Standards can be found at http://identity.ufl.edu/web/ -->
+    <color name="colorUFBlue">#0021A5</color>
+    <color name="colorUFOrange">#FA4616</color>
+    <!-- UF Canvas Colors -->
+    <color name="colorUFCanvasBlue">#084B81</color>
+    <color name="colorUFCanvasOrange">#DD661E</color>
+    
+    <color name="colorMainTitle">#000000</color>
 </resources>
