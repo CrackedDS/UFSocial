@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#0021A5</color>
-    <color name="colorPrimaryDark">#FA4616</color>
-    <color name="colorAccent">#DD661E</color>
+    <!-- Theme Colors -->
+    <color name="colorPrimary">@color/colorUFBlue</color>
+    <color name="colorPrimaryDark">@color/colorUFOrange</color>
+    <color name="colorAccent">@color/colorUFCanvasOrange</color>
 
     <!-- UF Official Colors. UF Web Standards can be found at http://identity.ufl.edu/web/ -->
     <color name="colorUFBlue">#0021A5</color>
@@ -10,6 +11,11 @@
     <!-- UF Canvas Colors -->
     <color name="colorUFCanvasBlue">#084B81</color>
     <color name="colorUFCanvasOrange">#DD661E</color>
-    
-    <color name="colorMainTitle">#000000</color>
+
+    <!-- Customized Colors -->
+    <color name="colorMainTitle">@color/colorUFBlue</color>
+    <color name="colorErrorMessage">@color/colorUFOrange</color>
+    <color name="colorButtonText">#FFFFFF</color>
+    <color name="colorButtonBackground">@color/colorUFOrange</color>
+    <color name="colorTextLink">#4477FF</color>
 </resources>

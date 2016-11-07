@@ -1,3 +1,6 @@
 <resources>
     <string name="app_name">UF Social</string>
+
+    <string name="linkSignUp"><u>Sign Up</u></string>
+    <string name="linkForgetPassword"><u>Forget password?</u></string>
 </resources>
