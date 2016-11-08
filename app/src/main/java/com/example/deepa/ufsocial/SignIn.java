@@ -31,7 +31,7 @@ public class SignIn extends AppCompatActivity {
                 EditText editTextPassword = (EditText) findViewById(R.id.editTextSignInPassword);
 
                 if (editTextEmail.getText().toString().isEmpty() || editTextPassword.getText().toString().isEmpty()) {
-                    textViewErrorMessage.setText("Please enter both email and password.");
+                    textViewErrorMessage.setText("Please enter email and password.");
                     return;
                 }
 
