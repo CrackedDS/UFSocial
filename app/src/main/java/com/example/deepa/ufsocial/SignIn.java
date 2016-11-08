@@ -15,21 +15,12 @@ public class SignIn extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_in);
 
+        //set action bar text
         setTitle("Welcome to " + getString(R.string.app_name));
 
         //clear error message
         final TextView textViewErrorMessage = (TextView) findViewById(R.id.textViewSignInErrorMessage);
         textViewErrorMessage.setText("");
-
-        //button Sign Up
-        Button buttonSignUp = (Button) findViewById(R.id.buttonSignInSignUp);
-        buttonSignUp.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View view){
-                Intent intentToSignUp = new Intent(SignIn.this, SignUp.class);
-                startActivity(intentToSignUp);
-            }
-        });
 
         //button Sign In
         Button buttonSignIn = (Button) findViewById(R.id.buttonSignInSignIn);
@@ -53,6 +44,16 @@ public class SignIn extends AppCompatActivity {
                 else {
                     textViewErrorMessage.setText("Failed to sign in. Email or Password is incorrect.");
                 }
+            }
+        });
+
+        //button Sign Up
+        Button buttonSignUp = (Button) findViewById(R.id.buttonSignInSignUp);
+        buttonSignUp.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view){
+                Intent intentToSignUp = new Intent(SignIn.this, SignUp.class);
+                startActivity(intentToSignUp);
             }
         });
 

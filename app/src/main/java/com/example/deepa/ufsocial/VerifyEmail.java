@@ -15,6 +15,7 @@ public class VerifyEmail extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_verify_email);
 
+        //set action bar text
         setTitle("New User Sign Up");
 
         //clear error message
@@ -28,8 +29,7 @@ public class VerifyEmail extends AppCompatActivity {
             public void onClick(View view){
                 EditText editTextConfirmationCode = (EditText) findViewById(R.id.editTextVerifyEmailConfirmationCode);
 
-                if (editTextConfirmationCode.getText().toString().equals("1234") == false)
-                {
+                if (editTextConfirmationCode.getText().toString().equals("1234") == false) {
                     textViewErrorMessage.setText("Confirmation Code is incorrect.");
                     return;
                 }
