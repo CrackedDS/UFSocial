@@ -26,5 +26,7 @@ public class Landing extends AppCompatActivity {
             }
         };
         h.sendEmptyMessageDelayed(0, 1500);
+
+        //test
     }
 }
