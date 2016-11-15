@@ -34,8 +34,11 @@
             android:name=".ResetPassword"
             android:parentActivityName=".ForgetPassword"
             android:windowSoftInputMode="stateVisible" />
-        <activity android:name=".ResetPasswordDone" />
-        <activity android:name=".Home"></activity>
+        <activity
+            android:name=".ResetPasswordDone" />
+        <activity
+            android:name=".Home"
+            android:theme="@style/HomeActivityTheme"></activity>
     </application>
 
 </manifest>

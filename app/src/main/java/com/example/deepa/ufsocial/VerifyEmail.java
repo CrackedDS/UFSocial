@@ -34,9 +34,9 @@ public class VerifyEmail extends AppCompatActivity {
                     return;
                 }
 
-                Intent intentToMyProfile = new Intent(VerifyEmail.this, ResetPasswordDone.class);
-                intentToMyProfile.putExtra("user_id", "10000001");
-                startActivity(intentToMyProfile);
+                Intent intentToHome = new Intent(VerifyEmail.this, Home.class);
+                intentToHome.putExtra("user_id", "10000001");
+                startActivity(intentToHome);
                 finish();
             }
         });

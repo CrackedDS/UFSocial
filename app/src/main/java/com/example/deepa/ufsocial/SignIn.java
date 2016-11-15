@@ -36,9 +36,9 @@ public class SignIn extends AppCompatActivity {
                 }
 
                 if(editTextEmail.getText().toString().equalsIgnoreCase("neo@ufl.edu") && editTextPassword.getText().toString().equals("test")) {
-                    Intent intentToUserSuggestion = new Intent(SignIn.this, ResetPasswordDone.class);
-                    intentToUserSuggestion.putExtra("user_id", "10000001");
-                    startActivity(intentToUserSuggestion);
+                    Intent intentToHome = new Intent(SignIn.this, Home.class);
+                    intentToHome.putExtra("user_id", "10000001");
+                    startActivity(intentToHome);
                     finish();
                 }
                 else {
