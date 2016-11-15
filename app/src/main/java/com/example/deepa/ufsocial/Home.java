@@ -1,5 +1,6 @@
 package com.example.deepa.ufsocial;
 
+import android.content.Intent;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -39,7 +40,16 @@ public class Home extends AppCompatActivity {
         tabLayout = (TabLayout) findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(viewPager);
 
-        viewPager.setCurrentItem(1);
+        Intent intentFromPrev = getIntent();
+        Bundle bd = intentFromPrev.getExtras();
+        //if user is newly signed up, show My Profile Page
+        if (bd.getString("NewUser").equals("Yes")) {
+            viewPager.setCurrentItem(2);
+        }
+        else {
+            viewPager.setCurrentItem(1);
+        }
+
     }
 
     private void setupViewPager(ViewPager viewPager) {

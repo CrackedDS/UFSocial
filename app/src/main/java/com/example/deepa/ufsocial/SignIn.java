@@ -36,8 +36,11 @@ public class SignIn extends AppCompatActivity {
                 }
 
                 if(editTextEmail.getText().toString().equalsIgnoreCase("test") && editTextPassword.getText().toString().equals("test")) {
+                    Bundle bd = new Bundle();
+                    bd.putString("UserID", "10000001");
+                    bd.putString("NewUser", "No");
                     Intent intentToHome = new Intent(SignIn.this, Home.class);
-                    intentToHome.putExtra("user_id", "10000001");
+                    intentToHome.putExtras(bd);
                     startActivity(intentToHome);
                     finish();
                 }

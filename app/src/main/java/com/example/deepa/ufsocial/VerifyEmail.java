@@ -34,8 +34,11 @@ public class VerifyEmail extends AppCompatActivity {
                     return;
                 }
 
+                Bundle bd = new Bundle();
+                bd.putString("UserID", "10000001");
+                bd.putString("NewUser", "Yes");
                 Intent intentToHome = new Intent(VerifyEmail.this, Home.class);
-                intentToHome.putExtra("user_id", "10000001");
+                intentToHome.putExtras(bd);
                 startActivity(intentToHome);
                 finish();
             }
