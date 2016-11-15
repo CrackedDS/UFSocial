@@ -40,7 +40,7 @@ public class SignUp extends AppCompatActivity {
                     return;
                 }
 
-                if (editTextEmail.getText().toString().equalsIgnoreCase("neo@ufl.edu") && editTextPassword.getText().toString().equalsIgnoreCase("test")) {
+                if (editTextEmail.getText().toString().equalsIgnoreCase("test") && editTextPassword.getText().toString().equalsIgnoreCase("test")) {
                     Intent intentToVerifyEmail = new Intent(SignUp.this, VerifyEmail.class);
                     intentToVerifyEmail.putExtra("user_id", "10000001");
                     startActivity(intentToVerifyEmail);
