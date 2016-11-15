@@ -66,7 +66,7 @@
         android:id="@+id/buttonSignInSignUp"
         android:textAllCaps="false"
         android:textColor="@color/colorButtonText"
-        android:background="@color/colorMainTitle"/>
+        android:background="@color/colorButtonBackground"/>
 
     <Button
         android:text="Sing In"

@@ -3,7 +3,7 @@
     <!-- Theme Colors -->
     <color name="colorPrimary">@color/colorUFBlue</color>
     <color name="colorPrimaryDark">@color/colorUFOrange</color>
-    <color name="colorAccent">@color/colorUFCanvasOrange</color>
+    <color name="colorAccent">@color/colorUFOrange</color>
 
     <!-- UF Official Colors. UF Web Standards can be found at http://identity.ufl.edu/web/ -->
     <color name="colorUFBlue">#0021A5</color>
@@ -16,6 +16,6 @@
     <color name="colorMainTitle">@color/colorUFBlue</color>
     <color name="colorErrorMessage">@color/colorUFOrange</color>
     <color name="colorButtonText">#FFFFFF</color>
-    <color name="colorButtonBackground">@color/colorUFOrange</color>
+    <color name="colorButtonBackground">@color/colorUFBlue</color>
     <color name="colorTextLink">#4477FF</color>
 </resources>
