@@ -8,11 +8,15 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.view.KeyEvent;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class Home extends AppCompatActivity {
+
+    private long mExitTime = 0;
 
     private Toolbar toolbar;
     private TabLayout tabLayout;
@@ -74,5 +78,21 @@ public class Home extends AppCompatActivity {
             return mFragmentTitleList.get(position);
         }
     }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            if (System.currentTimeMillis() - mExitTime < 2000) {
+                System.exit(0);
+            }
+            else {
+                Toast.makeText(this, "Press again to exit", Toast.LENGTH_SHORT).show();
+                mExitTime = System.currentTimeMillis();
+            }
+            return true;
+        }
+        return super.onKeyDown(keyCode, event);
+    }
+
 
 }
