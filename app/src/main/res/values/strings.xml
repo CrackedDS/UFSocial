@@ -5,4 +5,9 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string name="item_title">Deepan</string>
+    <string name="item_desc">Age : 22</string>
+    <string name="detail_desc">I am awesome. And i know it :P. But Chang is even more cooler :P. </string>
+    <string name="detail_location">"UF"</string>
 </resources>
