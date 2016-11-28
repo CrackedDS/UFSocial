@@ -69,7 +69,7 @@
         android:background="@color/colorButtonBackground"/>
 
     <Button
-        android:text="Sing In"
+        android:text="Sign In"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/buttonSignInSignIn"

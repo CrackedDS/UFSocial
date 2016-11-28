@@ -17,23 +17,23 @@
         </activity>
         <activity
             android:name=".SignIn"
-            android:windowSoftInputMode="stateVisible" />
+            android:windowSoftInputMode="stateHidden" />
         <activity
             android:name=".SignUp"
             android:parentActivityName=".SignIn"
-            android:windowSoftInputMode="stateVisible" />
+            android:windowSoftInputMode="stateHidden" />
         <activity
             android:name=".VerifyEmail"
             android:parentActivityName=".SignUp"
-            android:windowSoftInputMode="stateVisible" />
+            android:windowSoftInputMode="stateHidden" />
         <activity
             android:name=".ForgetPassword"
             android:parentActivityName=".SignIn"
-            android:windowSoftInputMode="stateVisible" />
+            android:windowSoftInputMode="stateHidden" />
         <activity
             android:name=".ResetPassword"
             android:parentActivityName=".ForgetPassword"
-            android:windowSoftInputMode="stateVisible" />
+            android:windowSoftInputMode="stateHidden" />
         <activity android:name=".ResetPasswordDone" />
         <activity
             android:name=".Home"
