@@ -40,7 +40,12 @@
             android:theme="@style/HomeActivityTheme" />
         <activity
             android:name=".UserProfile"
-            android:parentActivityName=".Home"></activity>
+            android:parentActivityName=".Home" />
+
+        <service
+            android:name=".MyService"
+            android:enabled="true"
+            android:exported="true"></service>
     </application>
 
 </manifest>
