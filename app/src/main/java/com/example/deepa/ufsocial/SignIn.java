@@ -1,6 +1,10 @@
 package com.example.deepa.ufsocial;
 
+import android.content.ComponentName;
+import android.content.Context;
 import android.content.Intent;
+import android.content.ServiceConnection;
+import android.os.IBinder;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -8,12 +12,21 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 public class SignIn extends AppCompatActivity {
+
+    MyService mService;
+    boolean mBound = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_in);
+
+        Intent intent = new Intent(this, MyService.class);
+        bindService(intent, mConnection, Context.BIND_AUTO_CREATE);
 
         //set action bar text
         setTitle("Welcome to " + getString(R.string.app_name));
@@ -35,7 +48,18 @@ public class SignIn extends AppCompatActivity {
                     return;
                 }
 
-                if(editTextEmail.getText().toString().equalsIgnoreCase("test") && editTextPassword.getText().toString().equals("test")) {
+                JSONObject obj = new JSONObject();
+                try {
+                    obj.put("header", "testAuth");
+                    obj.put("email", editTextEmail.getText().toString());
+                    obj.put("password", editTextPassword.getText().toString());
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+                String result = mService.logIn(obj);
+
+                if(result == "true") {
                     Bundle bd = new Bundle();
                     bd.putString("UserID", "10000001");
                     bd.putString("NewUser", "No");
@@ -69,7 +93,31 @@ public class SignIn extends AppCompatActivity {
                 startActivity(intentToForgetPassword);
             }
         });
-
-
     }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        // Unbind from the service
+        if (mBound) {
+            unbindService(mConnection);
+            mBound = false;
+        }
+    }
+
+    /** Defines callbacks for service binding, passed to bindService() */
+    private ServiceConnection mConnection = new ServiceConnection() {
+        @Override
+        public void onServiceConnected(ComponentName name, IBinder service) {
+            MyService.LocalBinder binder = (MyService.LocalBinder) service;
+            mService = binder.getService();
+            mBound = true;
+        }
+
+        @Override
+        public void onServiceDisconnected(ComponentName name) {
+            mBound = false;
+        }
+    };
+
 }

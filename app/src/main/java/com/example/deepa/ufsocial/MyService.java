@@ -4,8 +4,7 @@ import android.app.Service;
 import android.content.Intent;
 import android.os.Binder;
 import android.os.IBinder;
-import android.util.Log;
-
+import org.json.JSONObject;
 import java.io.BufferedWriter;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
@@ -27,8 +26,6 @@ public class MyService extends Service {
     @Override
     public void onCreate() {
         super.onCreate();
-        Runnable connect = new connectSocket();
-        new Thread(connect).start();
     }
 
  /*   @Override
@@ -38,23 +35,30 @@ public class MyService extends Service {
         return START_STICKY;
     }*/
 
-
     class connectSocket implements Runnable {
+
+        JSONObject obj;
+        connectSocket() {}
+        connectSocket(JSONObject object) {
+            obj = object;
+        }
+
         @Override
         public void run() {
             try{
                 InetAddress serverAddr = InetAddress.getByName(SERVER_IP);
                 socket = new Socket(serverAddr, SERVERPORT);
-
                 OutputStream os = socket.getOutputStream();
                 BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(os, "UTF-8"));
-                StringBuilder sb = new StringBuilder();
-                sb.append(URLEncoder.encode("Name", "UTF-8"));
-                writer.write(sb.toString());
-                writer.flush();
-                writer.close();
-                os.close();
-
+                switch(obj.getString("header")) {
+                    case "testAuth":
+                        writer.write(obj.toString());
+                        writer.flush();
+                        writer.close();
+                        os.close();
+                        
+                        break;
+                }
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -81,5 +85,11 @@ public class MyService extends Service {
     @Override
     public IBinder onBind(Intent intent) {
         return mBinder;
+    }
+
+    public String logIn(JSONObject obj) {
+        Runnable connect1 = new connectSocket(obj);
+        new Thread(connect1).start();
+        return null;
     }
 }
