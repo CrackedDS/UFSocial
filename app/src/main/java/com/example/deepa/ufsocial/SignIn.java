@@ -1,10 +1,13 @@
 package com.example.deepa.ufsocial;
 
+import android.content.BroadcastReceiver;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.ServiceConnection;
 import android.os.IBinder;
+import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -19,6 +22,7 @@ public class SignIn extends AppCompatActivity {
 
     MyService mService;
     boolean mBound = false;
+    String message;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,6 +31,16 @@ public class SignIn extends AppCompatActivity {
 
         Intent intent = new Intent(this, MyService.class);
         bindService(intent, mConnection, Context.BIND_AUTO_CREATE);
+
+        BroadcastReceiver mMessageReceiver = new BroadcastReceiver() {
+            @Override
+            public void onReceive(Context context, Intent intent) {
+                message = intent.getStringExtra("message");
+            }
+        };
+
+        LocalBroadcastManager.getInstance(this).registerReceiver(mMessageReceiver,
+                new IntentFilter("my-event"));
 
         //set action bar text
         setTitle("Welcome to " + getString(R.string.app_name));
@@ -57,9 +71,13 @@ public class SignIn extends AppCompatActivity {
                     e.printStackTrace();
                 }
 
-                String result = mService.logIn(obj);
+                try {
+                    mService.logIn(obj);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
 
-                if(result == "true") {
+                if(message == "true") {
                     Bundle bd = new Bundle();
                     bd.putString("UserID", "10000001");
                     bd.putString("NewUser", "No");

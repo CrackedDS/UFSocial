@@ -2,10 +2,17 @@ package com.example.deepa.ufsocial;
 
 import android.app.Service;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Binder;
 import android.os.IBinder;
+import android.support.v4.content.LocalBroadcastManager;
+
 import org.json.JSONObject;
+
+import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
@@ -35,7 +42,7 @@ public class MyService extends Service {
         return START_STICKY;
     }*/
 
-    class connectSocket implements Runnable {
+    class connectSocket extends Thread {
 
         JSONObject obj;
         connectSocket() {}
@@ -50,19 +57,37 @@ public class MyService extends Service {
                 socket = new Socket(serverAddr, SERVERPORT);
                 OutputStream os = socket.getOutputStream();
                 BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(os, "UTF-8"));
+                InputStream is = socket.getInputStream();
+                BufferedReader reader = new BufferedReader(new InputStreamReader(is, "UTF-8"));
                 switch(obj.getString("header")) {
                     case "testAuth":
                         writer.write(obj.toString());
                         writer.flush();
                         writer.close();
                         os.close();
-                        
+
+                        StringBuilder buffer = new StringBuilder();
+                        String inputStr = "";
+                        while ((inputStr = reader.readLine()) != null)
+                            buffer.append(inputStr);
+                        String finalJson = buffer.toString();
+                        String json = finalJson.substring(finalJson.indexOf("{"), finalJson.lastIndexOf("}") + 1);
+                        JSONObject jObject = new JSONObject(json);
+                        sendMessage(jObject.getString("response"));
+                        reader.close();
+                        is.close();
                         break;
                 }
             } catch (Exception e) {
                 e.printStackTrace();
             }
         }
+    }
+
+    private void sendMessage(String data) {
+        Intent intent = new Intent("my-event");
+        intent.putExtra("message", data);
+        LocalBroadcastManager.getInstance(this).sendBroadcast(intent);
     }
 
     @Override
@@ -87,9 +112,9 @@ public class MyService extends Service {
         return mBinder;
     }
 
-    public String logIn(JSONObject obj) {
-        Runnable connect1 = new connectSocket(obj);
-        new Thread(connect1).start();
-        return null;
+    public void logIn(JSONObject obj) throws InterruptedException {
+        connectSocket connect1 = new connectSocket(obj);
+        connect1.start();
+        connect1.join();
     }
 }
