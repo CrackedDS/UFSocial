@@ -19,7 +19,7 @@ public class MyService extends Service {
     private final IBinder mBinder = new LocalBinder();
     private Socket socket;
     private static final int SERVERPORT = 8000;
-    private static final String SERVER_IP = "70.171.55.255";
+    private static final String SERVER_IP = "70.171.55.225";
 
     public MyService() {
     }
@@ -27,15 +27,16 @@ public class MyService extends Service {
     @Override
     public void onCreate() {
         super.onCreate();
-    }
-
-    @Override
-    public int onStartCommand(Intent intent,int flags, int startId){
-        super.onStartCommand(intent, flags, startId);
         Runnable connect = new connectSocket();
         new Thread(connect).start();
-        return START_STICKY;
     }
+
+ /*   @Override
+    public int onStartCommand(Intent intent,int flags, int startId){
+        super.onStartCommand(intent, flags, startId);
+
+        return START_STICKY;
+    }*/
 
 
     class connectSocket implements Runnable {
@@ -53,7 +54,6 @@ public class MyService extends Service {
                 writer.flush();
                 writer.close();
                 os.close();
-                socket.close();
 
             } catch (Exception e) {
                 e.printStackTrace();
