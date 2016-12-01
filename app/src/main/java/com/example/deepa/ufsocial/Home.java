@@ -48,7 +48,7 @@ public class Home extends AppCompatActivity {
         Intent intentFromPrev = getIntent();
         Bundle bd = intentFromPrev.getExtras();
         //if user is newly signed up, show My Profile Page
-        if (bd.getString("NewUser").equals("Yes")) {
+        if (bd != null && bd.getString("NewUser").equals("Yes")) {
             viewPager.setCurrentItem(2);
         }
         else {
