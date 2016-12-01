@@ -22,46 +22,55 @@ public class MyService extends Service {
     private static final String SERVER_IP = "70.171.55.255";
 
     public MyService() {
-           /*
-           HttpURLConnection urlConnection = null;
-            URL url = new URL("http://10.0.2.2/Sanguine-Web/postdetails.php");
-            urlConnection = (HttpURLConnection) url.openConnection();
-            urlConnection.setConnectTimeout(CONNECTION_TIMEOUT);
-            urlConnection.setDoOutput(true);
-            urlConnection.setChunkedStreamingMode(0);
-
-            OutputStream os = urlConnection.getOutputStream();
-            BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(os, "UTF-8"));
-
-            writer.write("");
-            writer.flush();
-            writer.close();
-            os.close();
-            urlConnection.disconnect();
-            Log.d("fls","ksdf");
-*/
     }
 
     @Override
     public void onCreate() {
         super.onCreate();
-        try{
-            InetAddress serverAddr = InetAddress.getByName(SERVER_IP);
-            socket = new Socket(serverAddr, SERVERPORT);
+    }
 
-            OutputStream os = socket.getOutputStream();
-            BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(os, "UTF-8"));
-            StringBuilder sb = new StringBuilder();
-            sb.append(URLEncoder.encode("Name", "UTF-8"));
-            writer.write(sb.toString());
-            writer.flush();
-            writer.close();
-            os.close();
+    @Override
+    public int onStartCommand(Intent intent,int flags, int startId){
+        super.onStartCommand(intent, flags, startId);
+        Runnable connect = new connectSocket();
+        new Thread(connect).start();
+        return START_STICKY;
+    }
+
+
+    class connectSocket implements Runnable {
+        @Override
+        public void run() {
+            try{
+                InetAddress serverAddr = InetAddress.getByName(SERVER_IP);
+                socket = new Socket(serverAddr, SERVERPORT);
+
+                OutputStream os = socket.getOutputStream();
+                BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(os, "UTF-8"));
+                StringBuilder sb = new StringBuilder();
+                sb.append(URLEncoder.encode("Name", "UTF-8"));
+                writer.write(sb.toString());
+                writer.flush();
+                writer.close();
+                os.close();
+                socket.close();
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        try {
             socket.close();
-
         } catch (Exception e) {
+            // TODO Auto-generated catch block
             e.printStackTrace();
         }
+        socket = null;
     }
 
     public class LocalBinder extends Binder {
