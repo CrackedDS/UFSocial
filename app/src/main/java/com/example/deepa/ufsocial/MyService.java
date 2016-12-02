@@ -6,7 +6,6 @@ import android.content.IntentFilter;
 import android.os.Binder;
 import android.os.IBinder;
 import android.support.v4.content.LocalBroadcastManager;
-import android.util.Log;
 
 import org.json.JSONObject;
 
@@ -64,20 +63,18 @@ public class MyService extends Service {
                     case "testAuth":
                         writer.write(obj.toString());
                         writer.flush();
-
+                        writer.close();
+                        os.close();
 
                         StringBuilder buffer = new StringBuilder();
                         String inputStr = "";
-                        /*while (() != null)
-                            buffer.append(inputStr);*/
-                        inputStr = reader.readLine();
+                        while ((inputStr = reader.readLine()) != null)
+                            buffer.append(inputStr);
                         String finalJson = buffer.toString();
-                        String json = inputStr.substring(finalJson.indexOf("{"), finalJson.lastIndexOf("}") + 1);
+                        String json = finalJson.substring(finalJson.indexOf("{"), finalJson.lastIndexOf("}") + 1);
                         JSONObject jObject = new JSONObject(json);
                         sendMessage(jObject.getString("response"));
                         reader.close();
-                        writer.close();
-                        os.close();
                         is.close();
                         break;
                 }
@@ -90,7 +87,6 @@ public class MyService extends Service {
     private void sendMessage(String data) {
         Intent intent = new Intent("my-event");
         intent.putExtra("message", data);
-        Log.d("msdf", data);
         LocalBroadcastManager.getInstance(this).sendBroadcast(intent);
     }
 
@@ -119,6 +115,10 @@ public class MyService extends Service {
     public void logIn(JSONObject obj) throws InterruptedException {
         connectSocket connect1 = new connectSocket(obj);
         connect1.start();
-        connect1.join();
+        try {
+            connect1.join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 }
