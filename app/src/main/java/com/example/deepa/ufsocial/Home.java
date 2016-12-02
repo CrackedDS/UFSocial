@@ -93,7 +93,7 @@ public class Home extends AppCompatActivity {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
         adapter.addFragment(new PreferredUsers(), "PREFERRED");
         adapter.addFragment(new SuggestedUsers(), "SUGGESTED");
-//        adapter.addFragment(new MyProfile(), "MY PROFILE");
+        adapter.addFragment(new MyProfile(), "MY PROFILE");
         viewPager.setAdapter(adapter);
     }
 
