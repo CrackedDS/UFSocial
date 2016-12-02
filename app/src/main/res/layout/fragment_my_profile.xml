@@ -7,65 +7,9 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="My Profile Page"
-        android:id="@+id/textView"/>
+        android:text="My Profile Page" />
 
-    <Spinner
-        android:id="@+id/spinner1"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:entries="@array/interest_array"
-        android:prompt="@string/interest_prompt"
-        android:layout_marginTop="180dp"
-        android:layout_below="@id/textView"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
 
-    <EditText
-        android:hint="Min number of times paths should cross"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:inputType="number"
-        android:ems="10"
-        android:id="@+id/editCrossPathNumber"
-        android:layout_below="@id/spinner1"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginTop="39dp" />
 
-    <EditText
-        android:hint="Min number of common interests"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:inputType="number"
-        android:ems="10"
-        android:id="@+id/editMinCommonInterest"
-        android:layout_below="@+id/editCrossPathNumber"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginTop="10dp" />
 
-    <Spinner
-        android:id="@+id/spinner2"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:entries="@array/education_array"
-        android:prompt="@string/education_level_prompt"
-        android:layout_marginTop="21dp"
-        android:layout_below="@+id/editMinCommonInterest"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
-
-    <Button
-        android:text="Submit"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="17dp"
-        android:id="@+id/buttonMyProfile"
-        android:textAllCaps="false"
-        android:textColor="@color/colorButtonText"
-        android:background="@color/colorButtonBackground"
-        android:layout_below="@+id/spinner2"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
 </RelativeLayout>
