@@ -40,7 +40,7 @@ public class SignIn extends AppCompatActivity {
         };
 
         LocalBroadcastManager.getInstance(this).registerReceiver(mMessageReceiver,
-                new IntentFilter("my-event"));
+                new IntentFilter("signin"));
 
         //set action bar text
         setTitle("Welcome to " + getString(R.string.app_name));
@@ -72,7 +72,7 @@ public class SignIn extends AppCompatActivity {
                 }
 
                 try {
-                    mService.logIn(obj);
+                    mService.trivialActions(obj);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }

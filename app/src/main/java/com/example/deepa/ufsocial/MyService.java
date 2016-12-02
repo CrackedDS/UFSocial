@@ -58,24 +58,43 @@ public class MyService extends Service {
             try{
                 InetAddress serverAddr = InetAddress.getByName(SERVER_IP);
                 socket = new Socket(serverAddr, SERVERPORT);
-                switch(obj.getString("header")) {
-                    case "testAuth":
-                        switch (obj.getString("header")) {
-                            case "testAuth":
-                                PrintWriter os = new PrintWriter(socket.getOutputStream(), true);
-                                BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-                                os.println(obj.toString());
-                                try {
-                                    String response = in.readLine();
-                                    JSONObject jObject = new JSONObject(response);
-                                    sendMessage(jObject.getString("response"));
-                                    os.close();
-                                    in.close();
-                                    break;
-                                } catch (IOException e) {
-                                    break;
-                                }
+                switch (obj.getString("header")) {
+                    case "testAuth": {
+                        PrintWriter os = new PrintWriter(socket.getOutputStream(), true);
+                        BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+                        os.println(obj.toString());
+                        try {
+                            String response = in.readLine();
+                            JSONObject jObject = new JSONObject(response);
+                            sendMessage("signin", jObject.getString("response"));
+                            os.close();
+                            in.close();
+                            break;
+                        } catch (IOException e) {
+                            break;
                         }
+                    }
+                    case "forgotPassword": {
+                        PrintWriter os = new PrintWriter(socket.getOutputStream(), true);
+                        os.println(obj.toString());
+                        os.close();
+                        break;
+                    }
+                    case "resetPassword": {
+                        PrintWriter os = new PrintWriter(socket.getOutputStream(), true);
+                        BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+                        os.println(obj.toString());
+                        try {
+                            String response = in.readLine();
+                            JSONObject jObject = new JSONObject(response);
+                            sendMessage("resetpass", jObject.getString("response"));
+                            os.close();
+                            in.close();
+                            break;
+                        } catch (IOException e) {
+                            break;
+                        }
+                    }
                 }
             } catch (Exception e) {
                 e.printStackTrace();
@@ -83,8 +102,8 @@ public class MyService extends Service {
         }
     }
 
-    private void sendMessage(String data) {
-        Intent intent = new Intent("my-event");
+    private void sendMessage(String inte, String data) {
+        Intent intent = new Intent(inte);
         intent.putExtra("message", data);
         Log.d("msdf", data);
         LocalBroadcastManager.getInstance(this).sendBroadcastSync(intent);
@@ -112,7 +131,7 @@ public class MyService extends Service {
         return mBinder;
     }
 
-    public void logIn(JSONObject obj) throws InterruptedException {
+    public void trivialActions(JSONObject obj) throws InterruptedException {
         connectSocket connect1 = new connectSocket(obj);
         connect1.start();
         try {
