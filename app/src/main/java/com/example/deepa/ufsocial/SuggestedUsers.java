@@ -1,11 +1,14 @@
 package com.example.deepa.ufsocial;
 
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
+import android.content.ServiceConnection;
 import android.content.res.Resources;
 import android.content.res.TypedArray;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.os.IBinder;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -21,6 +24,9 @@ import android.widget.Toast;
 
 public class SuggestedUsers extends Fragment {
 
+    MyService mService;
+    boolean mBound = false;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -30,6 +36,8 @@ public class SuggestedUsers extends Fragment {
         recyclerView.setAdapter(adapter);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        doBindService();
+        mService.homeActions();
         return recyclerView;
     }
 
@@ -82,6 +90,23 @@ public class SuggestedUsers extends Fragment {
             });
         }
     }
+
+    void doBindService() {
+        getActivity().bindService(new Intent(getActivity(),MyService.class),mConnection,Context.BIND_AUTO_CREATE);
+    }
+    private ServiceConnection mConnection = new ServiceConnection() {
+        @Override
+        public void onServiceConnected(ComponentName name, IBinder service) {
+            MyService.LocalBinder binder = (MyService.LocalBinder) service;
+            mService = binder.getService();
+            mBound = true;
+        }
+
+        @Override
+        public void onServiceDisconnected(ComponentName name) {
+            mBound = false;
+        }
+    };
 
     /**
      * Adapter to display recycler view.

@@ -54,19 +54,13 @@ public class Home extends AppCompatActivity {
         else {
             viewPager.setCurrentItem(1);
         }
-    }
-
-    @Override
-    protected void onStart() {
-        super.onStart();
-        // Bind to LocalService
         Intent intent = new Intent(this, MyService.class);
         bindService(intent, mConnection, Context.BIND_AUTO_CREATE);
     }
 
     @Override
-    protected void onStop() {
-        super.onStop();
+    protected void onDestroy() {
+        super.onDestroy();
         // Unbind from the service
         if (mBound) {
             unbindService(mConnection);
