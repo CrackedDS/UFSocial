@@ -77,7 +77,7 @@ public class SignIn extends AppCompatActivity {
                     e.printStackTrace();
                 }
 
-                if(message == (null)) {
+                if(message == ("authorized")) {
                     Bundle bd = new Bundle();
                     bd.putString("UserID", "10000001");
                     bd.putString("NewUser", "No");
