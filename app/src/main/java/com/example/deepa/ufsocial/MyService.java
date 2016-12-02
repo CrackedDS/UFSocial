@@ -10,6 +10,7 @@ import android.support.annotation.RequiresApi;
 import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
@@ -48,9 +49,17 @@ public class MyService extends Service {
     }*/
 
     class connectSocket extends Thread {
-
+        LocationTest locationTest = new LocationTest();
         JSONObject obj;
-        connectSocket() {obj = null;}
+        connectSocket() {
+            obj = new JSONObject();
+            locationTest = new LocationTest();
+            try {
+                obj.put("header", "none");
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
         connectSocket(JSONObject object) {
             obj = object;
         }
@@ -101,7 +110,7 @@ public class MyService extends Service {
                     case "createAccount": {
                         PrintWriter os = new PrintWriter(socket.getOutputStream(), true);
                         BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-                        os.println(new LocationTest().getGPS());
+                        os.println(obj.toString());
                         try {
                             String response = in.readLine();
                             JSONObject jObject = new JSONObject(response);
@@ -131,7 +140,7 @@ public class MyService extends Service {
                     default: {
                         PrintWriter os = new PrintWriter(socket.getOutputStream(), true);
                         BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-                        os.println(obj.toString());
+                        os.println(locationTest.getGPS());
                         try {
                             String response = in.readLine();
                             JSONObject jObject = new JSONObject(response);
@@ -189,7 +198,7 @@ public class MyService extends Service {
         }
     }
 
-    public void homeActions() {
+/*    public void homeActions() {
         connectSocket connect = new connectSocket();
         connect.start();
         try {
@@ -197,5 +206,5 @@ public class MyService extends Service {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-    }
+    }*/
 }

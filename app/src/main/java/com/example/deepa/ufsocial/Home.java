@@ -16,6 +16,9 @@ import android.support.v7.widget.Toolbar;
 import android.view.KeyEvent;
 import android.widget.Toast;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,7 +28,7 @@ public class Home extends AppCompatActivity {
     private Toolbar toolbar;
     private TabLayout tabLayout;
     private ViewPager viewPager;
-    MyService mService;
+    MyService mService = new MyService();
     boolean mBound = false;
 
     @Override
@@ -54,8 +57,20 @@ public class Home extends AppCompatActivity {
         else {
             viewPager.setCurrentItem(1);
         }
-        Intent intent = new Intent(this, MyService.class);
-        bindService(intent, mConnection, Context.BIND_AUTO_CREATE);
+        Intent intent1 = new Intent(this, MyService.class);
+        bindService(intent1, mConnection, Context.BIND_AUTO_CREATE);
+
+        JSONObject obj = new JSONObject();
+        try {
+            obj.put("header", "none");
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        try {
+            mService.trivialActions(obj);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
