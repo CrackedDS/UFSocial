@@ -85,6 +85,7 @@ public class SignUp extends AppCompatActivity {
                 if (message.equals("true")) {
                     Intent intentToVerifyEmail = new Intent(SignUp.this, VerifyEmail.class);
                     intentToVerifyEmail.putExtra("user_id", "10000001");
+                    intentToVerifyEmail.putExtra("email", editTextEmail.getText().toString());
                     startActivity(intentToVerifyEmail);
                     finish();
                 } else {

@@ -32,11 +32,10 @@ public class MyProfile extends Fragment {
 
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_my_profile, container, false);
+        /*
         final Button buttonSignUp = (Button) view.findViewById(R.id.buttonMyProfile);
         buttonSignUp.setOnClickListener(new View.OnClickListener(){
             View parent = (View) buttonSignUp.getParent();
-            Spinner interests = (Spinner) parent.findViewById(R.id.spinner1);
-            EditText editCrossPathNumber = (EditText) parent.findViewById(R.id.editCrossPathNumber);
             EditText editMinCommonInterest = (EditText) parent.findViewById(R.id.editMinCommonInterest);
             //EditText editTextConfirmPassword = (EditText) findViewById(R.id.editTextSignUpConfirmPassword);
             Spinner education = (Spinner) parent.findViewById(R.id.spinner2);
@@ -46,6 +45,7 @@ public class MyProfile extends Fragment {
                 Log.d("hi from ", "myprofile");
             }
         });
+        */
 
         return view;
     }

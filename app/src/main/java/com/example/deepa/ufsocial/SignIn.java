@@ -79,7 +79,7 @@ public class SignIn extends AppCompatActivity {
 
                 if(message.equals("authorized")) {
                     Bundle bd = new Bundle();
-                    bd.putString("UserID", "10000001");
+                    bd.putString("email",  editTextEmail.getText().toString());
                     bd.putString("NewUser", "No");
                     Intent intentToHome = new Intent(SignIn.this, Home.class);
                     intentToHome.putExtras(bd);

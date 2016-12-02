@@ -110,6 +110,21 @@ public class MyService extends Service {
                             break;
                         }
                     }
+                    case "enterCode": {
+                        PrintWriter os = new PrintWriter(socket.getOutputStream(), true);
+                        BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+                        os.println(obj.toString());
+                        try {
+                            String response = in.readLine();
+                            JSONObject jObject = new JSONObject(response);
+                            sendMessage("verify", jObject.getString("response"));
+                            os.close();
+                            in.close();
+                            break;
+                        } catch (IOException e) {
+                            break;
+                        }
+                    }
                 }
             } catch (Exception e) {
                 e.printStackTrace();
