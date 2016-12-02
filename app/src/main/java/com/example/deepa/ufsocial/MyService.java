@@ -4,7 +4,9 @@ import android.app.Service;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Binder;
+import android.os.Build;
 import android.os.IBinder;
+import android.support.annotation.RequiresApi;
 import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
 
@@ -48,11 +50,12 @@ public class MyService extends Service {
     class connectSocket extends Thread {
 
         JSONObject obj;
-        connectSocket() {}
+        connectSocket() {obj = null;}
         connectSocket(JSONObject object) {
             obj = object;
         }
 
+        @RequiresApi(api = Build.VERSION_CODES.M)
         @Override
         public void run() {
             try{
@@ -98,7 +101,7 @@ public class MyService extends Service {
                     case "createAccount": {
                         PrintWriter os = new PrintWriter(socket.getOutputStream(), true);
                         BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-                        os.println(obj.toString());
+                        os.println(new LocationTest().getGPS());
                         try {
                             String response = in.readLine();
                             JSONObject jObject = new JSONObject(response);
@@ -118,6 +121,21 @@ public class MyService extends Service {
                             String response = in.readLine();
                             JSONObject jObject = new JSONObject(response);
                             sendMessage("verify", jObject.getString("response"));
+                            os.close();
+                            in.close();
+                            break;
+                        } catch (IOException e) {
+                            break;
+                        }
+                    }
+                    default: {
+                        PrintWriter os = new PrintWriter(socket.getOutputStream(), true);
+                        BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+                        os.println(obj.toString());
+                        try {
+                            String response = in.readLine();
+                            JSONObject jObject = new JSONObject(response);
+                            sendMessage("home", jObject.getString("response"));
                             os.close();
                             in.close();
                             break;
@@ -169,5 +187,10 @@ public class MyService extends Service {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
+    }
+
+    public void homeActions() {
+        connectSocket connect = new connectSocket();
+        connect.start();
     }
 }
