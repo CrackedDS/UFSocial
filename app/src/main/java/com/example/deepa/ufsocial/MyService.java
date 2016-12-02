@@ -192,5 +192,10 @@ public class MyService extends Service {
     public void homeActions() {
         connectSocket connect = new connectSocket();
         connect.start();
+        try {
+            connect.join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 }
