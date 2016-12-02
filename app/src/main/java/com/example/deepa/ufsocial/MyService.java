@@ -116,6 +116,10 @@ public class MyService extends Service {
     public void logIn(JSONObject obj) throws InterruptedException {
         connectSocket connect1 = new connectSocket(obj);
         connect1.start();
-        connect1.join();
+        try {
+            connect1.join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 }
