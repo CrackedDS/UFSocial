@@ -6,6 +6,8 @@ import android.content.IntentFilter;
 import android.os.Binder;
 import android.os.IBinder;
 import android.support.v4.content.LocalBroadcastManager;
+import android.util.JsonReader;
+import android.util.Log;
 
 import org.json.JSONObject;
 
@@ -56,24 +58,33 @@ public class MyService extends Service {
                 InetAddress serverAddr = InetAddress.getByName(SERVER_IP);
                 socket = new Socket(serverAddr, SERVERPORT);
                 OutputStream os = socket.getOutputStream();
-                BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(os, "UTF-8"));
                 InputStream is = socket.getInputStream();
-                BufferedReader reader = new BufferedReader(new InputStreamReader(is, "UTF-8"));
+                //BufferedReader reader = new BufferedReader(new InputStreamReader(is, "UTF-8"));
                 switch(obj.getString("header")) {
                     case "testAuth":
+                        BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(os, "UTF-8"));
                         writer.write(obj.toString());
                         writer.flush();
-                        writer.close();
-                        os.close();
 
-                        StringBuilder buffer = new StringBuilder();
+                        /*StringBuilder buffer = new StringBuilder();
                         String inputStr = "";
-                        while ((inputStr = reader.readLine()) != null)
-                            buffer.append(inputStr);
+                        *//*while (() != null)
+                            buffer.append(inputStr);*//*
+                        inputStr = reader.readLine();
                         String finalJson = buffer.toString();
-                        String json = finalJson.substring(finalJson.indexOf("{"), finalJson.lastIndexOf("}") + 1);
-                        JSONObject jObject = new JSONObject(json);
-                        sendMessage(jObject.getString("response"));
+                        String json = inputStr.substring(finalJson.indexOf("{"), finalJson.lastIndexOf("}") + 1);*/
+                        JsonReader reader = new JsonReader(new InputStreamReader(is, "UTF-8"));
+                        reader.beginObject();
+                        String response = "";
+                        while (reader.hasNext()) {
+                            String name = reader.nextName();
+                            if(name.equals("response")) {
+                                response = reader.nextString();
+                            }
+                        }
+                        reader.endObject();
+                        Log.d("dgd", response);
+                        sendMessage(response);
                         reader.close();
                         is.close();
                         break;
@@ -87,6 +98,7 @@ public class MyService extends Service {
     private void sendMessage(String data) {
         Intent intent = new Intent("my-event");
         intent.putExtra("message", data);
+        Log.d("msdf", data);
         LocalBroadcastManager.getInstance(this).sendBroadcast(intent);
     }
 
