@@ -37,6 +37,19 @@ public class Home extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
+        Intent intent = new Intent(this, MyService.class);
+        bindService(intent, mConnection, Context.BIND_AUTO_CREATE);
+
+        BroadcastReceiver mMessageReceiver = new BroadcastReceiver() {
+            @Override
+            public void onReceive(Context context, Intent intent) {
+                message = intent.getStringExtra("message");
+            }
+        };
+
+        LocalBroadcastManager.getInstance(this).registerReceiver(mMessageReceiver,
+                new IntentFilter("home"));
+
         toolbar = (Toolbar) findViewById(R.id.toolbarHome);
         setSupportActionBar(toolbar);
 
@@ -64,18 +77,7 @@ public class Home extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
         // Bind to LocalService
-        Intent intent = new Intent(this, MyService.class);
-        bindService(intent, mConnection, Context.BIND_AUTO_CREATE);
 
-        BroadcastReceiver mMessageReceiver = new BroadcastReceiver() {
-            @Override
-            public void onReceive(Context context, Intent intent) {
-                message = intent.getStringExtra("message");
-            }
-        };
-
-        LocalBroadcastManager.getInstance(this).registerReceiver(mMessageReceiver,
-                new IntentFilter("home"));
 
         mService.homeActions();
     }
