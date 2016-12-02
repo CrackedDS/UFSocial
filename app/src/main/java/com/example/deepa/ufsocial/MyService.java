@@ -12,10 +12,12 @@ import org.json.JSONObject;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
+import java.io.PrintWriter;
 import java.net.HttpURLConnection;
 import java.net.InetAddress;
 import java.net.Socket;
@@ -56,27 +58,27 @@ public class MyService extends Service {
             try{
                 InetAddress serverAddr = InetAddress.getByName(SERVER_IP);
                 socket = new Socket(serverAddr, SERVERPORT);
-                OutputStream os = socket.getOutputStream();
-                BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(os, "UTF-8"));
-                InputStream is = socket.getInputStream();
-                BufferedReader reader = new BufferedReader(new InputStreamReader(is, "UTF-8"));
                 switch(obj.getString("header")) {
                     case "testAuth":
-                        writer.write(obj.toString());
-                        writer.flush();
-                        writer.close();
-                        os.close();
-                        StringBuilder buffer = new StringBuilder();
-                        String inputStr = "";
-                        while ((inputStr = reader.readLine()) != null)
-                            buffer.append(inputStr);
-                        String finalJson = buffer.toString();
-                        String json = finalJson.substring(finalJson.indexOf("{"), finalJson.lastIndexOf("}") + 1);
-                        JSONObject jObject = new JSONObject(json);
-                        sendMessage(jObject.getString("response"));
-                        reader.close();
-                        is.close();
-                        break;
+                        switch (obj.getString("header")) {
+                            case "testAuth":
+                                socket = new Socket(serverAddr, SERVERPORT);
+
+                                PrintWriter os = new PrintWriter(socket.getOutputStream(), true);
+                                BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+
+                                os.println(obj.toString());
+
+                                try {
+                                    String response = in.readLine();
+
+                                    JSONObject jObject = new JSONObject(response);
+                                    sendMessage(jObject.getString("response"));
+                                    break;
+                                } catch (IOException e) {
+                                    break;
+                                }
+                        }
                 }
             } catch (Exception e) {
                 e.printStackTrace();
@@ -88,7 +90,7 @@ public class MyService extends Service {
         Intent intent = new Intent("my-event");
         intent.putExtra("message", data);
         Log.d("msdf", data);
-        LocalBroadcastManager.getInstance(this).sendBroadcast(intent);
+        LocalBroadcastManager.getInstance(this).sendBroadcastSync(intent);
     }
 
     @Override
