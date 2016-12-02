@@ -6,6 +6,7 @@ import android.content.IntentFilter;
 import android.os.Binder;
 import android.os.IBinder;
 import android.support.v4.content.LocalBroadcastManager;
+import android.util.Log;
 
 import org.json.JSONObject;
 
@@ -65,7 +66,6 @@ public class MyService extends Service {
                         writer.flush();
                         writer.close();
                         os.close();
-
                         StringBuilder buffer = new StringBuilder();
                         String inputStr = "";
                         while ((inputStr = reader.readLine()) != null)
@@ -87,6 +87,7 @@ public class MyService extends Service {
     private void sendMessage(String data) {
         Intent intent = new Intent("my-event");
         intent.putExtra("message", data);
+        Log.d("msdf", data);
         LocalBroadcastManager.getInstance(this).sendBroadcast(intent);
     }
 

@@ -10,4 +10,21 @@
     <string name="item_desc">Age : 22</string>
     <string name="detail_desc">I am awesome. And i know it :P. But Chang is even more cooler :P. </string>
     <string name="detail_location">"UF"</string>
+
+    <string name="interest_prompt">Choose an interest</string>
+    <string name="education_level_prompt">Choose your education level</string>
+
+    <string-array name="interest_array">
+        <item>Machine Learning</item>
+        <item>Algorithms</item>
+        <item>Data Mining</item>
+    </string-array>
+
+    <string-array name="education_array">
+        <item>Freshman</item>
+        <item>Sophomore</item>
+        <item>Junior</item>
+        <item>Senior</item>
+        <item>Graduate</item>
+    </string-array>
 </resources>
