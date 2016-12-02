@@ -36,10 +36,7 @@ public class Home extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
-
-        Intent intent = new Intent(this, MyService.class);
-        bindService(intent, mConnection, Context.BIND_AUTO_CREATE);
-
+        
         BroadcastReceiver mMessageReceiver = new BroadcastReceiver() {
             @Override
             public void onReceive(Context context, Intent intent) {
@@ -74,10 +71,12 @@ public class Home extends AppCompatActivity {
     }
 
     @Override
-    protected void onStart() {
-        super.onStart();
+    protected void onResume() {
+        super.onResume();
         // Bind to LocalService
 
+        Intent intent = new Intent(this, MyService.class);
+        bindService(intent, mConnection, Context.BIND_AUTO_CREATE);
 
         mService.homeActions();
     }
