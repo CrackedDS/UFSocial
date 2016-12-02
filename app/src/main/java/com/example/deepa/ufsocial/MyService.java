@@ -27,6 +27,8 @@ import java.net.Socket;
 import java.net.URL;
 import java.net.URLEncoder;
 
+import static android.support.test.InstrumentationRegistry.getContext;
+
 public class MyService extends Service {
     private final IBinder mBinder = new LocalBinder();
     private Socket socket;
@@ -49,11 +51,11 @@ public class MyService extends Service {
     }*/
 
     class connectSocket extends Thread {
-        LocationTest locationTest = new LocationTest();
+        GPSManager gpsManager = new GPSManager(getContext());
         JSONObject obj;
+        JSONObject obj1;
         connectSocket() {
             obj = new JSONObject();
-            locationTest = new LocationTest();
             try {
                 obj.put("header", "none");
             } catch (JSONException e) {
@@ -140,7 +142,10 @@ public class MyService extends Service {
                     default: {
                         PrintWriter os = new PrintWriter(socket.getOutputStream(), true);
                         BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-                        os.println(locationTest.getGPS());
+                        obj1.put("header", "GPSData");
+                        obj1.put("latitude", Double.toString(gpsManager.getLatitude()));
+                        obj1.put("longitude", Double.toString(gpsManager.getLongitude()));
+                        os.println(obj1.toString());
                         try {
                             String response = in.readLine();
                             JSONObject jObject = new JSONObject(response);
